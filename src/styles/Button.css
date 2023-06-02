@@ -37,3 +37,11 @@
 .button:active {
   transform: translateY(1px);
 }
+
+.button.operator {
+  background-color: rgb(63, 196, 244);
+}
+
+.button.clear {
+  background-color: red;
+}
