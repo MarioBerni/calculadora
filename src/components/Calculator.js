@@ -7,24 +7,33 @@ const Calculator = () => {
   const [displayValue, setDisplayValue] = useState('0');
   const [storedValue, setStoredValue] = useState('');
   const [operator, setOperator] = useState('');
+  const [isNegative, setIsNegative] = useState(false);
 
   const handleClick = (value) => {
   if (/[+\-*/]/.test(value)) {
-    if (displayValue !== '0' && operator !== '') {
-      if (!/[+\-*/]/.test(displayValue)) {
-        setStoredValue(evaluate(storedValue + operator + displayValue).toString().slice(0, 10));
+    if (value === '-' && displayValue === '0') {
+      setIsNegative(true);
+    } else {
+      setIsNegative(false);
+      if (displayValue !== '0' && operator !== '') {
+        if (!/[+\-*/]/.test(displayValue)) {
+          setStoredValue(evaluate(storedValue + operator + displayValue).toString().slice(0, 10));
+        }
+      } else if (displayValue !== '0') {
+        setStoredValue(displayValue);
       }
-    } else if (displayValue !== '0') {
-      setStoredValue(displayValue);
+      setOperator(value);
+      setDisplayValue(value);
     }
-    setOperator(value);
-    setDisplayValue(value);
   } else {
     if (value === '.' && displayValue.includes('.')) {
       return;
     }
     if (displayValue.length < 12) {
-      if (/[+\-*/]/.test(displayValue) || displayValue === '0') {
+      if (isNegative) {
+        setDisplayValue('-' + value);
+        setIsNegative(false);
+      } else if (/[+\-*/]/.test(displayValue) || displayValue === '0') {
         setDisplayValue(value);
       } else {
         setDisplayValue((prevDisplayValue) => prevDisplayValue + value);
