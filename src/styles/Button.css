@@ -1,12 +1,39 @@
 /* Button.css */
+/* Button.css */
 .button {
-  background-color: #4CAF50; /* Color de fondo */
-  color: white; /* Color del texto */
-  padding: 10px 20px; /* Espaciado interno */
-  border: none; /* Borde */
-  cursor: pointer; /* Cambio de cursor al pasar el ratón */
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+  margin: 5px;
 }
 
 .button:hover {
-  background-color: #45a049; /* Color de fondo en hover */
+  background-color: #45a049;
+}
+
+.button:focus {
+  outline: none;
+}
+
+.button:active {
+  transform: translateY(1px);
+}
+
+
+.button:hover {
+  background-color: #45a049;
+}
+
+.button:focus {
+  outline: none;
+}
+
+.button:active {
+  transform: translateY(1px);
 }

@@ -10,7 +10,7 @@ const Calculator = () => {
     if (value === '.' && displayValue.includes('.')) {
       return;
     }
-
+  
     if (/[+\-*/]$/.test(displayValue) && /[+\-*/]/.test(value)) {
       setDisplayValue((prevDisplayValue) => prevDisplayValue.slice(0, -1) + value);
     } else {
@@ -20,10 +20,13 @@ const Calculator = () => {
       if (displayValue === '0') {
         setDisplayValue(value);
       } else {
-        setDisplayValue((prevDisplayValue) => prevDisplayValue + value);
+        // Comprueba si la longitud de la pantalla es 10 antes de agregar otro valor
+        if (displayValue.length < 10) {
+          setDisplayValue((prevDisplayValue) => prevDisplayValue + value);
+        }
       }
     }
-  };
+  };  
 
   const handleClear = () => {
     setDisplayValue('0');
@@ -32,7 +35,7 @@ const Calculator = () => {
   const handleEquals = () => {
     try {
       const result = evaluate(displayValue);
-      setDisplayValue(result.toString());
+      setDisplayValue(result.toString().slice(0, 10));
     } catch (error) {
       console.log('Error in evaluation:', error);
     }
