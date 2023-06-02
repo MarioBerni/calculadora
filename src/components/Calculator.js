@@ -21,7 +21,7 @@ const Calculator = () => {
         setDisplayValue(value);
       } else {
         // Comprueba si la longitud de la pantalla es 10 antes de agregar otro valor
-        if (displayValue.length < 16) {
+        if (displayValue.length < 15) {
           setDisplayValue((prevDisplayValue) => prevDisplayValue + value);
         }
       }
