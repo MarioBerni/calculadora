@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Display from './Display';
 import Button from './Button';
+import { evaluate } from 'mathjs';
 
 const Calculator = () => {
   const [displayValue, setDisplayValue] = useState('0');
@@ -30,7 +31,7 @@ const Calculator = () => {
 
   const handleEquals = () => {
     try {
-      const result = eval(displayValue);
+      const result = evaluate(displayValue);
       setDisplayValue(result.toString());
     } catch (error) {
       console.log('Error in evaluation:', error);

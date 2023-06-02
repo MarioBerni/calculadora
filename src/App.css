@@ -1,5 +1,11 @@
 .App {
   text-align: center;
+  /* agrega estas reglas de flexbox a .App */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* agrega esta línea */
 }
 
 .App-logo {
