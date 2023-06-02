@@ -5,39 +5,50 @@ import { evaluate } from 'mathjs';
 
 const Calculator = () => {
   const [displayValue, setDisplayValue] = useState('0');
+  const [storedValue, setStoredValue] = useState('');
+  const [operator, setOperator] = useState('');
 
   const handleClick = (value) => {
+  if (/[+\-*/]/.test(value)) {
+    if (displayValue !== '0' && operator !== '') {
+      if (!/[+\-*/]/.test(displayValue)) {
+        setStoredValue(evaluate(storedValue + operator + displayValue).toString().slice(0, 10));
+      }
+    } else if (displayValue !== '0') {
+      setStoredValue(displayValue);
+    }
+    setOperator(value);
+    setDisplayValue(value);
+  } else {
     if (value === '.' && displayValue.includes('.')) {
       return;
     }
-  
-    if (/[+\-*/]$/.test(displayValue) && /[+\-*/]/.test(value)) {
-      setDisplayValue((prevDisplayValue) => prevDisplayValue.slice(0, -1) + value);
-    } else {
-      if (displayValue === '0' && value === '0') {
-        return;
-      }
-      if (displayValue === '0') {
+    if (displayValue.length < 12) {
+      if (/[+\-*/]/.test(displayValue) || displayValue === '0') {
         setDisplayValue(value);
       } else {
-        // Comprueba si la longitud de la pantalla es 10 antes de agregar otro valor
-        if (displayValue.length < 12) {
-          setDisplayValue((prevDisplayValue) => prevDisplayValue + value);
-        }
+        setDisplayValue((prevDisplayValue) => prevDisplayValue + value);
       }
     }
-  };  
+  }
+};
 
   const handleClear = () => {
     setDisplayValue('0');
+    setStoredValue('');
+    setOperator('');
   };
 
   const handleEquals = () => {
-    try {
-      const result = evaluate(displayValue);
-      setDisplayValue(result.toString().slice(0, 10));
-    } catch (error) {
-      console.log('Error in evaluation:', error);
+    if (storedValue && operator) {
+      try {
+        const result = evaluate(storedValue + operator + displayValue);
+        setDisplayValue(result.toString().slice(0, 10));
+        setStoredValue('');
+        setOperator('');
+      } catch (error) {
+        console.log('Error in evaluation:', error);
+      }
     }
   };
 
